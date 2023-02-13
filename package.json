@@ -1,0 +1,19 @@
+{
+  "name": "ecomm-api",
+  "version": "1.0.0",
+  "description": "Simple ecommerce API",
+  "main": "index.js",
+  "repository": "https://github.com/olaysco/ecomm-api.git",
+  "author": "olaysco <olayiwolaodunsi@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/express": "^4.17.17",
+    "body-parser": "^1.20.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "start": "node src/index.ts"
+  }
+}
