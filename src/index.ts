@@ -1,1 +1,3 @@
-console.log("hello world");
+import HTTPServer from "./server/HTTPServer";
+
+HTTPServer.start();
