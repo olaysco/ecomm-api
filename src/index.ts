@@ -1,3 +1,8 @@
+import { PORT, DB_URI } from "./config";
+import Database from "./services/Database";
 import HTTPServer from "./server/HTTPServer";
 
-HTTPServer.start();
+(async () => {
+  await Database.connect(DB_URI);
+  HTTPServer.start(PORT);
+})();
