@@ -1,6 +1,6 @@
 import { IRoutes } from "./IRoutes";
 import { Application, Request, Response } from "express";
-import ProductController from "./../controller/ProductController";
+import ProductController from "../controllers/ProductController";
 
 export class ProductRoutes implements IRoutes {
   controller = ProductController;

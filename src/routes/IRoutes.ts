@@ -1,7 +1,7 @@
 import { Application } from "express";
-import { Controller } from "../controller/Controller";
+import { Controller } from "../controllers/Controller";
 
 export interface IRoutes {
-  controller: Controller;
+  controller: Controller | null;
   routes: (app: Application) => void;
 }

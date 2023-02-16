@@ -1,6 +1,6 @@
 import { Error, SortOrder } from "mongoose";
-import { ProductService } from "./../services/ProductService";
-import { IProduct, productFilters } from "./../model/Product";
+import { ProductService } from "../services/ProductService";
+import { IProduct, productFilters } from "../model/Product";
 import { Controller } from "./Controller";
 import { Request, Response } from "express";
 
