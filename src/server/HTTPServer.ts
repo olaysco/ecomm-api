@@ -1,8 +1,8 @@
 import http from "http";
 import express from "express";
-import { PORT } from "./../config/index";
 import { IRoutes } from "./../routes/IRoutes";
 import { ProductRoutes } from "./../routes/ProductRoutes";
+import { JSONSyntaxErrorHandler } from "../middlewares/errorHandler";
 
 class HTTPServer {
   public app: express.Application;
@@ -13,6 +13,7 @@ class HTTPServer {
     this.app.use(express.json());
     this.app.enable("trust proxy");
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(JSONSyntaxErrorHandler());
     this.setupRoutes();
   }
 
@@ -20,10 +21,10 @@ class HTTPServer {
     this.productRoutes.routes(this.app);
   }
 
-  start() {
+  start(port: string) {
     http
       .createServer(this.app)
-      .listen(PORT, () => console.log(`listening on port ${PORT}`));
+      .listen(port, () => console.log(`listening on port ${port}`));
   }
 }
 
