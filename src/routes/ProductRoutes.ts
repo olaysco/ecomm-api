@@ -1,26 +1,29 @@
 import { IRoutes } from "./IRoutes";
 import { Application, Request, Response } from "express";
+import ProductController from "./../controller/ProductController";
 
 export class ProductRoutes implements IRoutes {
+  controller = ProductController;
+
   public routes(app: Application) {
     app.get("/products", (req: Request, res: Response) => {
-      console.log("get all");
+      this.controller.index(req, res);
     });
 
     app.get("/products/:id", (req: Request, res: Response) => {
-      console.log("get single product");
+      this.controller.single(req, res);
     });
 
     app.post("/products", (req: Request, res: Response) => {
-      console.log("create product");
+      this.controller.store(req, res);
     });
 
     app.patch("/products/:id", (req: Request, res: Response) => {
-      console.log("update single product");
+      this.controller.update(req, res);
     });
 
     app.delete("/products/:id", (req: Request, res: Response) => {
-      console.log("delete single product");
+      this.controller.destroy(req, res);
     });
   }
 }
