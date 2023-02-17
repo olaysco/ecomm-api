@@ -1,3 +1,4 @@
+import { SwaggerRoutes } from "./../routes/SwaggerRoutes";
 import http from "http";
 import express from "express";
 import { IRoutes } from "./../routes/IRoutes";
@@ -7,6 +8,7 @@ import { JSONSyntaxErrorHandler } from "../middlewares/errorHandler";
 class HTTPServer {
   public app: express.Application;
   private productRoutes: IRoutes = new ProductRoutes();
+  private swaggerRoutes: IRoutes = new SwaggerRoutes();
 
   constructor() {
     this.app = express();
@@ -19,6 +21,7 @@ class HTTPServer {
 
   private setupRoutes() {
     this.productRoutes.routes(this.app);
+    this.swaggerRoutes.routes(this.app);
   }
 
   start(port: string) {
