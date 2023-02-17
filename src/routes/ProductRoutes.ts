@@ -6,6 +6,12 @@ export class ProductRoutes implements IRoutes {
   controller = ProductController;
 
   public routes(app: Application) {
+    app.get("/", (req: Request, res: Response) => {
+      res
+        .status(200)
+        .send("Welcome to ecomm api, <a href='/doc'>Access the doc</a>");
+    });
+
     app.get("/api/products", (req: Request, res: Response) => {
       this.controller.index(req, res);
     });
