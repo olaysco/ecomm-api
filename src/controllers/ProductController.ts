@@ -12,13 +12,6 @@ class ProductController extends Controller {
     this.service = new ProductService();
   }
 
-  /**
-   * Returns all products.
-   *
-   * @param req
-   * @param res
-   * @returns Promise
-   */
   public async index(req: Request, res: Response): Promise<Response> {
     try {
       const options: {
@@ -73,17 +66,23 @@ class ProductController extends Controller {
       ) {
         return this.errorResponse(
           res,
-          `Error product with ${req.params.id} not found`,
-          400
+          `Error product with ID ${req.params.id} not found`,
+          404
         );
       }
+
+      return super.errorResponse(
+        res,
+        `Unexpected error retrieving product`,
+        500
+      );
     }
   }
 
   async store(req: Request, res: Response) {
     try {
       const productData = {
-        name: req.body.namee,
+        name: req.body.name,
         brand: req.body.brand,
         price: req.body.price,
         weight: req.body.weight,
@@ -119,17 +118,20 @@ class ProductController extends Controller {
       ) {
         return this.errorResponse(
           res,
-          `Error product with ${req.params.id} not found`,
-          400
+          `Error product with ID ${req.params.id} not found`,
+          404
         );
       }
+
+      console.log(err);
+      return this.errorResponse(res, "Error deleting product", 500);
     }
   }
 
   public async update(req: Request, res: Response) {
     try {
       const productData = {
-        name: req.body.namee,
+        name: req.body.name,
         brand: req.body.brand,
         price: req.body.price,
         weight: req.body.weight,
@@ -153,8 +155,8 @@ class ProductController extends Controller {
       ) {
         return this.errorResponse(
           res,
-          `Error product with ${req.params.id} not found`,
-          400
+          `Error product with ID ${req.params.id} not found`,
+          404
         );
       }
 

@@ -7,7 +7,8 @@ type JSONResponse<T> = {
 };
 
 type PaginatedResponse<T> = JSONResponse<T> & {
-  page: number;
+  count: number;
+  currentPage: number;
   limit: number;
   previous: string | null;
   next: string | null;
@@ -62,7 +63,7 @@ export abstract class Controller {
   paginateResponse<T>(
     req: Request,
     res: Response,
-    page: number,
+    currentPage: number,
     count: number,
     limit: number,
     data: T
@@ -73,22 +74,23 @@ export abstract class Controller {
     let previous = null;
     let next = null;
 
-    if (page > 1) {
+    if (currentPage > 1) {
       const url = current;
-      url.searchParams.set("page", String(page - 1));
+      url.searchParams.set("currentPage", String(currentPage - 1));
       previous = url.toString();
     }
 
-    if (count > page * limit) {
+    if (count > currentPage * limit) {
       const url = current;
-      url.searchParams.set("page", String(page + 1));
+      url.searchParams.set("currentPage", String(currentPage + 1));
       next = url.toString();
     }
 
     const json: PaginatedResponse<T> = {
       status: "success",
       data,
-      page,
+      count,
+      currentPage,
       limit,
       next,
       previous,

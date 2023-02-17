@@ -43,11 +43,7 @@ export class ProductService {
       _id: id,
       isDeleted: false,
     };
-    const product = await Product.findOne(filterParam);
-
-    if (product == null) {
-      throw new Error("Product not found");
-    }
+    const product = await Product.findOne(filterParam).orFail();
 
     return product.toObject();
   }
@@ -91,11 +87,7 @@ export class ProductService {
       _id: id,
       isDeleted: false,
     };
-    const product = await Product.findOne(filterParam);
-
-    if (product == null) {
-      throw new Error("Product not found");
-    }
+    const product = await Product.findOne(filterParam).orFail();
 
     await Product.updateOne(filterParam, {
       isDeleted: true,
@@ -124,10 +116,7 @@ export class ProductService {
       _id: id,
       isDeleted: false,
     };
-    const existingProduct = await Product.findOne(filterParam);
-    if (existingProduct == null) {
-      throw new Error("Product not found");
-    }
+    const existingProduct = await Product.findOne(filterParam).orFail();
 
     const product = {
       name: productData.name ?? existingProduct?.name,
