@@ -1,9 +1,9 @@
 import { IRoutes } from "./IRoutes";
 import { Application, Request, Response } from "express";
-import ProductController from "../controllers/ProductController";
+import { ProductController } from "../controllers/ProductController";
 
 export class ProductRoutes implements IRoutes {
-  controller = ProductController;
+  controller = new ProductController();
 
   public routes(app: Application) {
     app.get("/", (req: Request, res: Response) => {

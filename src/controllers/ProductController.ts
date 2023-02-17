@@ -4,12 +4,9 @@ import { IProduct, productFilters } from "../model/Product";
 import { Controller } from "./Controller";
 import { Request, Response } from "express";
 
-class ProductController extends Controller {
-  private service: ProductService;
+export class ProductController extends Controller {
   constructor() {
     super();
-
-    this.service = new ProductService();
   }
 
   public async index(req: Request, res: Response): Promise<Response> {
@@ -32,7 +29,9 @@ class ProductController extends Controller {
         ],
       };
 
-      const { products, count } = await this.service.getProducts(options);
+      const { products, count } = await new ProductService().getProducts(
+        options
+      );
 
       return super.paginateResponse<IProduct[]>(
         req,
@@ -56,10 +55,11 @@ class ProductController extends Controller {
 
   async single(req: Request, res: Response) {
     try {
-      const product = await this.service.getProductById(req.params.id);
+      const product = await new ProductService().getProductById(req.params.id);
 
       return this.successResponse(res, product);
     } catch (err) {
+      console.log(err);
       if (
         err instanceof Error.CastError ||
         err instanceof Error.DocumentNotFoundError
@@ -89,7 +89,7 @@ class ProductController extends Controller {
         height: req.body.height,
         description: req.body.description,
       };
-      const product = await this.service.createProduct(productData);
+      const product = await new ProductService().createProduct(productData);
 
       return this.successResponse<IProduct>(res, product, null, 201);
     } catch (err: any) {
@@ -103,7 +103,7 @@ class ProductController extends Controller {
 
   public async destroy(req: Request, res: Response) {
     try {
-      await this.service.deleteProduct(req.params.id);
+      await new ProductService().deleteProduct(req.params.id);
 
       return this.successResponse(
         res,
@@ -123,7 +123,6 @@ class ProductController extends Controller {
         );
       }
 
-      console.log(err);
       return this.errorResponse(res, "Error deleting product", 500);
     }
   }
@@ -138,7 +137,7 @@ class ProductController extends Controller {
         height: req.body.height,
         description: req.body.description,
       };
-      const product = await this.service.updateProduct(
+      const product = await new ProductService().updateProduct(
         req.params.id,
         productData
       );
@@ -164,5 +163,3 @@ class ProductController extends Controller {
     }
   }
 }
-
-export default new ProductController();

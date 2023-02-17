@@ -16,7 +16,6 @@ export class ProductService {
     query: object;
   }): Promise<{ products: IProduct[]; count: number }> {
     const filters: { [index: string]: string | number } = {};
-
     Object.entries(options.query)
       .filter((entry) => productFilters.includes(entry[0]))
       .map((entry) => (filters[entry[0]] = entry[1] as string));
